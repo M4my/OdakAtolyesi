@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+    
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -480,6 +481,9 @@
     }
 }
     </style>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js"></script>
 </head>
 <body>
     <div class="container">
@@ -552,8 +556,8 @@
                     <li data-url="http://media-ice.musicradio.com/ClassicFMMP3">Classic FM</li>
                     <li data-url="http://stream.srg-ssr.ch/m/rsc_de/mp3_128">Radio Swiss Classic</li>
                     <li data-url="https://stream.wqxr.org/wqxr.mp3">WQXR - Classical Radio</li>
-                    <li data-url="https://drive.google.com/file/d/1azNWy_PXcrX5x1RF-OAkgfb450H09BDx/view?usp=sharing">Yağmur Sesi</li>
-                    <li data-url="https://drive.google.com/file/d/1azNWy_PXcrX5x1RF-OAkgfb450H09BDx/view?usp=sharing">Klasik Müzik</li>
+                    <li data-url="rain.mp3">Yağmur Sesi</li>
+                    <li data-url="classical.mp3">Klasik Müzik</li>
                 </ul>
             </div>
             <div class="donations">
@@ -584,6 +588,18 @@
     </div>
     
     <script>
+auth.onAuthStateChanged((user) => {
+    if (!user) {
+        window.location.href = 'auth.html'; // Giriş yapılmamışsa auth.html'e yönlendir
+    }
+});
+
+auth.onAuthStateChanged((user) => {
+    if (user) {
+        loadUserData(user.uid);
+    }
+});
+
         // DOM Elements
         const timerDisplay = document.getElementById('timer');
         const timerMode = document.getElementById('timer-mode');
@@ -734,6 +750,8 @@
                     isRunning = false;
                     startBtn.textContent = 'Başlat';
                     playAlertSound();
+                    const userId = auth.currentUser.uid; // Giriş yapan kullanıcının UID'si
+saveUserData(userId, 5, 120); // Örnek: 5 günlük streak ve 120 dakika toplam çalışma süresi
 
                     if (isWorkMode) {
                         // Çalışma modu tamamlandı, mola moduna geç
@@ -1156,6 +1174,38 @@ radioStations.addEventListener('click', (e) => {
         }
     }
 });
+
+function saveUserData(userId, streak, totalWorkTime) {
+    db.collection("users").doc(userId).set({
+        streak: streak,
+        totalWorkTime: totalWorkTime,
+        lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+    }).then(() => {
+        console.log("Veriler kaydedildi!");
+    }).catch((error) => {
+        console.error("Hata:", error);
+    });
+}
+
+function loadUserData(userId) {
+    db.collection("users").doc(userId).get().then((doc) => {
+        if (doc.exists) {
+            const data = doc.data();
+            console.log("Kullanıcı verileri:", data);
+            // Verileri ekrana veya değişkenlere aktarabilirsiniz
+            const streak = data.streak || 0;
+            const totalWorkTime = data.totalWorkTime || 0;
+            console.log(`Streak: ${streak}, Toplam Çalışma Süresi: ${totalWorkTime}`);
+        } else {
+            console.log("Kullanıcı verisi bulunamadı.");
+        }
+    }).catch((error) => {
+        console.error("Hata:", error);
+    });
+}
+
+const userId = auth.currentUser.uid; // Giriş yapan kullanıcının UID'si
+saveUserData(userId, 5, 120); // Örnek: 5 günlük streak ve 120 dakika toplam çalışma süresi
     </script>
 </body>
 <footer style="text-align: center; margin-top: 20px; color: var(--text-color); font-size: 0.8rem;">
