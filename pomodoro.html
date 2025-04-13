@@ -235,6 +235,8 @@
         </div>
     </div>
 
+    <audio id="notification-sound" src="notification.mp3" preload="auto"></audio>
+
     <script>
         // Timer değişkenleri
         let isRunning = false;
@@ -298,6 +300,8 @@
                             clearInterval(timer);
                             isRunning = false;
                             startBtn.textContent = 'Başlat';
+
+                            playNotificationSound(); // Ses çal
 
                             if (isWorkMode) {
                                 // Çalışma modu tamamlandı, mola moduna geç ve otomatik başlat
@@ -437,6 +441,11 @@
                 box.style.boxShadow = `0 0 10px ${shadowColor}`;
             });
             document.querySelector('.timer-display').style.boxShadow = `0 0 10px ${color}`;
+        }
+
+        function playNotificationSound() {
+            const sound = document.getElementById('notification-sound');
+            sound.play();
         }
 
         // Hamburger menü işlevselliği
