@@ -1,0 +1,252 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-image: url("arkaplan2.jpg");
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    color: white;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #contribution-container {
+    display: none; /* Varsayılan olarak gizli */
+    position: fixed; /* Sayfanın tamamına göre konumlandır */
+    top: 85%; /* Yatayda ortala */
+    left: 50%; /* Dikeyde ortala */
+    transform: translate(-50%, -50%); /* Ortalamayı tamamlama */
+    text-align: center;
+    
+    border-radius: 10px;
+    padding: 20px;
+   
+    z-index: 1000; /* Diğer elementlerin üstünde görünmesi için */
+}
+
+#contribution-graph {
+    display: grid;
+    grid-template-columns: repeat(53, 1fr); /* 53 hafta */
+    gap: 2px;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: rgb(112, 112, 112); /* Sitenin genel tasarımına uygun arka plan */
+    border-radius: 10px;
+    max-width: 90%; /* Aşırı büyük olmaması için genişlik sınırı */
+    width: 900px; /* Tablo genişliği */
+    height: 120px; /* Tablo yüksekliği */
+}
+
+#contribution-graph div {
+    width: 12px;
+    height: 12px;
+    background-color: #ebedf0; /* Varsayılan renk */
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#contribution-graph div[data-level="1"] {
+    background-color: #c6e48b; /* Az katkı */
+}
+
+#contribution-graph div[data-level="2"] {
+    background-color: #7bc96f; /* Orta katkı */
+}
+
+#contribution-graph div[data-level="3"] {
+    background-color: #239a3b; /* Yüksek katkı */
+}
+
+#contribution-graph div[data-level="4"] {
+    background-color: #196127; /* Çok yüksek katkı */
+}
+
+#day-details {
+    text-align: center;
+    margin-top: 10px;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+  .wrapper {
+    width: 100%;
+  }
+  
+  .tabs {
+    margin-bottom: 20px;
+    position: fixed; /* Sayfanın tamamına göre sabit konumlandırma */
+    top: 260px; /* Sayfanın üst kısmına yakın yerleştirme */
+    left: 50%; /* Yatayda ortalama */
+    transform: translateX(-50%); /* Ortalamayı tamamlama */
+    z-index: 1002; /* Diğer elementlerin üstünde görünmesi için */
+}
+
+.tabs button {
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #62ff91;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 1);
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+  
+  .container {
+    max-width: 500px;
+    margin: 0 auto;
+    border: 2px solid #62ff91;
+    padding: 20px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px) brightness(0.6);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 1);
+  }
+  
+  input {
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+    border: none;
+    width: 80px;
+    text-align: center;
+  }
+  
+  .tab {
+    display: none;
+  }
+  
+  .tab.active {
+    display: block;
+  }
+  
+  .controls button, .mode-select button {
+    padding: 10px 15px;
+    margin: 5px;
+    font-size: 16px;
+    border: none;
+    background-color: #62ff91;
+    color: rgb(0, 0, 0);
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #music-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+    background-color: #62ff91;
+    border-radius: 50%;
+    padding: 10px;
+    z-index: 1001;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#music-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(98, 255, 145, 0.8);
+}
+
+#music-panel {
+    position: fixed;
+    top: 70px;
+    right: 120px; /* Pomodoro kutucuğunun hemen yanına yerleştirme */
+    background-color: rgba(60, 60, 60, 0.9);
+    border: 2px solid #62ff91;
+    padding: 20px;
+    border-radius: 15px;
+    display: none;
+    z-index: 1000;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    width: 250px;
+    text-align: center;
+    backdrop-filter: blur(10px) brightness(0.8);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#music-panel.active {
+    display: block;
+    opacity: 1;
+    transform: translateX(0);
+}
+
+#music-panel h3 {
+    color: #62ff91;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+#music-panel button {
+    padding: 10px 15px;
+    margin: 5px;
+    font-size: 14px;
+    border: none;
+    background-color: #62ff91;
+    color: rgb(0, 0, 0);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#music-panel button:hover {
+    background-color: #4edb76;
+    transform: scale(1.05);
+}
+
+#stats {
+  position: fixed; /* Sayfanın tamamına göre konumlandır */
+  top: 50%; /* Yatayda ortala */
+  left: 50%; /* Dikeyde ortala */
+  transform: translate(-50%, -50%); /* Ortalamayı tamamlama */
+  border: 2px solid #62ff91;
+  backdrop-filter: blur(10px) brightness(0.8);
+  color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(98, 255, 145, 0.7);
+  font-family: 'Segoe UI', sans-serif;
+  width: 300px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+  #streak1 {
+    border: 2px solid #62ff91;
+    color: #000000;
+    background: #4edb76;
+    border-radius: 12px;
+    width: 300px;
+    margin-bottom: 15px;
+  }
+  #todayTime1 {
+    border: 2px solid #62ff91;
+    background: #4edb76;
+    color: #000000;
+    border-radius: 12px;
+    width: 300px;
+    margin-bottom: 15px;
+  }
+  #weekTime1 {
+    border: 2px solid #62ff91;
+    background: #4edb76;
+    color: #000000;
+    border-radius: 12px;
+    width: 300px;
+    margin-bottom: 15px;
+  }
+  #monthTime1 {
+    border: 2px solid #62ff91;
+    background: #4edb76;
+    color: #000000;
+    border-radius: 12px;
+    width: 300px;
+    margin-bottom: 15px;
+  }
+
+  
+  

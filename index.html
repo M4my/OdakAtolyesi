@@ -1,0 +1,85 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Çalışma Asistanı</title>
+  <link rel="icon" type="image/x-icon" href="favicon.png">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <div class="wrapper">
+      <div class="tabs">
+        <button onclick="showTab('timer')">Zamanlayıcı</button>
+        <button onclick="showTab('stats')">İstatistikler</button>
+      </div>
+  
+      <div class="container">
+        <div id="timer" class="tab active">
+          <h2>Pomodoro & Kronometre</h2>
+  
+          <div id="timeSettings">
+            <label>Pomodoro Süresi (dk):</label>
+            <input type="number" id="pomodoroDuration" value="25" min="1" />
+            <label>Mola Süresi (dk):</label>
+            <input type="number" id="breakDuration" value="5" min="1" />
+            <button onclick="saveSettings()">Kaydet</button>
+          </div>
+  
+          <div class="mode-select">
+            <button onclick="setMode('pomodoro')">Pomodoro Modu</button>
+            <button onclick="setMode('stopwatch')">Kronometre Modu</button>
+          </div>
+  
+          <h1 id="display">00:00</h1>
+  
+          <div class="controls">
+            <button onclick="start()">Başlat</button>
+            <button onclick="pause()">Duraklat</button>
+            <button onclick="reset()">Sıfırla</button>
+            <button onclick="finish()">Bitir</button>
+          </div>
+        </div>
+
+        <div id="music-button" onclick="toggleMusicPanel()">🎵</div>
+
+        <div id="music-panel">
+            <h3>Müzik Seç</h3>
+            <button onclick="playMusic('rain.mp3')">Yağmur</button>
+            <button onclick="playMusic('classical.mp3')">Klasik</button>
+            <button onclick="stopMusic()">Durdur</button>
+            <button onclick="resumeMusic()">Başlat</button>
+            <br>
+            <label for="volumeSlider">Ses Seviyesi</label>
+            <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5" onchange="setVolume(this.value)">
+          </div>
+          
+        
+        <audio id="audioPlayer" loop></audio>
+        
+        
+  
+        
+      </div>
+    </div>
+
+    <div id="stats" class="tab">
+      <h2 style="color:#62ff91;">🔥 İstatistikler 🔥</h2>
+      <div id="streak1"> <h2>Streak: <span id="streak">0</span> gün</h2></div>
+      <div id="todayTime1"> <h2>Bugünkü Süre: <span id="todayTime">0</span> dk</h2></div>
+      <div id="weekTime1"> <h2>Son 7 Gün: <span id="weekTime">0</span> dk</h2></div>
+      <div id="monthTime1"> <h2>Son 30 Gün: <span id="monthTime">0</span> dk</h2></div>
+  </div>
+  
+  <div id="contribution-container">
+    <div id="contribution-graph"></div>
+    <div id="day-details" class="details"></div>
+  </div>
+
+    <script src="app.js"></script>
+  </body>
+  
+  
+</html>
